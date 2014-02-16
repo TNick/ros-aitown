@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<package>
+  <name>ros_aitown_dstorage</name>
+  <version>0.0.0</version>
+  <description>The ros_aitown_dstorage package wraps aitown-dstorage for providing unique ids</description>
+
+  <!-- One maintainer tag required, multiple allowed, one person per tag --> 
+  <maintainer email="nicu.tofan@gmail.com">Nicu Tofan</maintainer>
+
+
+  <!-- One license tag required, multiple allowed, one license per tag -->
+  <license>New BSD</license>
+
+
+  <!-- Url tags are optional, but mutiple are allowed, one per tag -->
+  <url type="website">http://tnick.github.io/aitown/</url>
+  <url type="repository">https://github.com/TNick/ros-aitown.git</url>
+  <url type="bugtracker">https://github.com/TNick/ros-aitown/issues</url>
+
+  <!-- Author tags are optional, mutiple are allowed, one per tag -->
+  <!-- Authors do not have to be maintianers, but could be -->
+  <author email="nicu.tofan@gmail.com">Nicu Tofan</author>
+
+
+  <!-- The *_depend tags are used to specify dependencies -->
+  <!-- Dependencies can be catkin packages or system dependencies -->
+  <!-- Examples: -->
+  <!-- Use build_depend for packages you need at compile time: -->
+  <!--   <build_depend>message_generation</build_depend> -->
+  <!-- Use buildtool_depend for build tool packages: -->
+  <!--   <buildtool_depend>catkin</buildtool_depend> -->
+  <!-- Use run_depend for packages you need at runtime: -->
+  <!--   <run_depend>message_runtime</run_depend> -->
+  <!-- Use test_depend for packages you need only for testing: -->
+  <!--   <test_depend>gtest</test_depend> -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- You can specify that this package is a metapackage here: -->
+    <!-- <metapackage/> -->
+
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>
