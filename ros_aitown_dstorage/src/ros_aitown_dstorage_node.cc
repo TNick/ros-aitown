@@ -31,6 +31,9 @@
 #include <ros_aitown_dstorage/GetID.h>
 #include <ros_aitown_dstorage/SetID.h>
 
+#include <aitown/aitown-dstorage.h>
+
+
 /*  INCLUDES    ============================================================ */
 //
 //
@@ -39,11 +42,11 @@
 /*  DEFINITIONS    --------------------------------------------------------- */
 
 
-namespace ros_aitown_brain {
+namespace ros_aitown_dstorage {
 
 }
 
-using namespace ros_aitown_brain;
+using namespace ros_aitown_dstorage;
 
 /*  DEFINITIONS    ========================================================= */
 //
@@ -54,6 +57,9 @@ using namespace ros_aitown_brain;
 
 //! our node
 ros::NodeHandle * aitown_node = NULL;
+
+//! the instance
+dstorage_t storage;
 
 /*  DATA    ================================================================ */
 //
@@ -66,6 +72,8 @@ ros::NodeHandle * aitown_node = NULL;
 static void intHandler(int ) {
     ROS_INFO("...Ending");
 
+    // stop the database
+    dstorage_end (&storage);
 
     // our node
     if (aitown_node != NULL) {
@@ -74,6 +82,31 @@ static void intHandler(int ) {
     }
 
     ros::shutdown();
+}
+
+
+//! we're creating a new id here
+static bool kb_new_id(NewID::Request &req,
+                   NewID::Response &res)
+{
+
+
+    return true;
+}
+
+//! we're retrieving the content for an id
+static bool kb_get_id(GetID::Request &req,
+                   GetID::Response &res)
+{
+
+
+    return true;
+}
+
+//! we're removing a sensor by name; this is definitive
+static void kb_set_id (const SetID::ConstPtr& msg)
+{
+
 }
 
 
@@ -91,7 +124,8 @@ int main(int argc, char **argv)
 
     for (;;) {
 
-        // ...
+        // start the database
+        dstorage_init (&storage);
 
         // we will catch CTRL+C (not happening right now)
         signal(SIGINT, intHandler);
@@ -100,6 +134,27 @@ int main(int argc, char **argv)
         while (ros::ok())
         {
             // ...
+
+            ros::ServiceServer service_new_id =
+                aitown_node->advertiseService("new_id", kb_new_id);
+            if (!service_new_id) {
+                ROS_ERROR("Failed to advertise service <new_id>");
+                break;
+            }
+
+            ros::ServiceServer service_get_id =
+                aitown_node->advertiseService("get_id", kb_get_id);
+            if (!service_get_id) {
+                ROS_ERROR("Failed to advertise service <get_id>");
+                break;
+            }
+
+            ros::Subscriber subscribe_set_id =
+                aitown_node->subscribe("set_id", 10, kb_set_id);
+            if (!subscribe_set_id) {
+                ROS_ERROR("Failed to subscribe to <set_id>");
+                break;
+            }
 
             ros::spinOnce();
             loop_rate.sleep();
@@ -111,6 +166,6 @@ int main(int argc, char **argv)
     }
 
 
-    ROS_INFO("Node never reaches thiss point");
+    ROS_INFO("Node never reaches this point on normal execution");
     return ret;
 }
