@@ -27,6 +27,10 @@
 #include <signal.h>
 #include <inttypes.h>
 
+#include <ros_aitown_dstorage/NewID.h>
+#include <ros_aitown_dstorage/GetID.h>
+#include <ros_aitown_dstorage/SetID.h>
+
 /*  INCLUDES    ============================================================ */
 //
 //
