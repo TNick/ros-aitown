@@ -16,6 +16,14 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(AITown REQUIRED COMPONENTS system)
 include_directories(${AITOWN_INCLUDE_DIRS})
 
+find_package(KyotoCabinet)
+include_directories(${KYOTOCABINET_INCLUDE_DIR})
+
+find_package(TokyoCabinet)
+include_directories(${TOKYOCABINET_INCLUDE_DIR})
+
+find_package(MySQL)
+include_directories(${MYSQL_INCLUDE_DIR})
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -114,10 +122,34 @@ add_executable(ros_aitown_dstorage_node
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(ros_aitown_dstorage_node ros_aitown_dstorage_generate_messages_cpp)
 
+
+
+set (LIBS)
+
+if (${KYOTOCABINET_FOUND})
+    set ( LIBS ${LIBS}
+        ${KYOTOCABINET_LIBRARIES}
+    )
+endif (${KYOTOCABINET_FOUND})
+
+if (${TOKYOCABINET_FOUND})
+    set ( LIBS ${LIBS}
+        ${TOKYOCABINET_LIBRARIES}
+    )
+endif (${TOKYOCABINET_FOUND})
+
+if (${MYSQL_FOUND})
+    set ( LIBS ${LIBS}
+        ${MYSQL_LIBRARIES}
+    )
+endif (${MYSQL_FOUND})
+
+
 # Specify libraries to link a library or executable target against
 target_link_libraries(ros_aitown_dstorage_node
-  ${catkin_LIBRARIES}
-  ${AITOWN_LIBRARIES}
+    ${catkin_LIBRARIES}
+    ${AITOWN_LIBRARIES}
+    ${LIBS}
 )
 
 #############
