@@ -65,13 +65,16 @@ p {
 }
 
 
-/* footer */
+header {
+  background-color:#000000;
+}
 
 footer {
   margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
   color: #999;
+  background-color:#000000;
 }
 
 footer a {
